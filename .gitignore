@@ -1,6 +1,6 @@
 experiments
 loop_images
 nohup.out
-__pycache__
+__pycache__/
 .vscode
 inference_results/
