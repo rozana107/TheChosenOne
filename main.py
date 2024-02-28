@@ -28,7 +28,6 @@ import diffusers
 from diffusers import AutoencoderKL, DDPMScheduler, StableDiffusionXLPipeline, UNet2DConditionModel
 from diffusers.loaders import LoraLoaderMixin
 from diffusers.models.lora import LoRALinearLayer
-#, text_encoder_lora_state_dict
 from diffusers.optimization import get_scheduler
 from diffusers.training_utils import compute_snr
 from diffusers.utils import check_min_version, is_wandb_available
@@ -252,6 +251,8 @@ def load_trained_pipeline(model_path = None, load_lora=True, lora_path=None):
     """
     load the diffusion pipeline according to the trained model
     """
+    # Allocate a certain fraction of memory, for example, 50%
+    torch.cuda.set_per_process_memory_fraction(0.5, device="cuda")
     if model_path is not None:
         # TODO: long warning for lora
         pipe = DiffusionPipeline.from_pretrained(model_path, torch_dtype=torch.float16)
