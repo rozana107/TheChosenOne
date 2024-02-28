@@ -74,8 +74,7 @@ def train_loop(args, loop_num: int, vis=True, start_from=0):
         
         # load dinov2 every epoch, since we clean the model after feature etraction
         dinov2 = load_dinov2()
-        # Allocate a certain fraction of memory, for example, 50%
-        torch.cuda.set_per_process_memory_fraction(0.5)
+
         # load diffusion pipeline every epoch for new training image generation, since we clean the model after feature etraction
         if loop == 0:
             # load from default SDXL config.
